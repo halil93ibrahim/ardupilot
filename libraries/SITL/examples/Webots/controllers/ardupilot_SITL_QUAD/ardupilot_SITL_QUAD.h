@@ -13,7 +13,7 @@
 
 // # of simulation steps between two image frames.
 #define CAMERA_FRAME_RATE_FACTOR  50
-
+#define RANGEFINDER_FRAME_RATE_FACTOR  50
 #define ARRAY_SIZE(_arr) (sizeof(_arr) / sizeof(_arr[0]))
 
 

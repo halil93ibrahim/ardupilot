@@ -20,7 +20,7 @@
 #include <webots/supervisor.h>
 #include <webots/emitter.h>
 
-#define MAX_NUM_ROBOTS 1
+#define MAX_NUM_ROBOTS 4
 
 //define DEBUG_DATA
 
@@ -38,7 +38,8 @@ static Robot *robots[MAX_NUM_ROBOTS];
 static int actualRobots = 0;
 double *linear_velocity;
 
-static const char*coordinateSystem = "NUE"; // NUE for R2021a, ENU for R2021b
+
+static double northDirection[3] = {1.0,0.0,0.0};
 
 /*
  * You may want to add macros here.
@@ -97,15 +98,15 @@ void initialize (int argc, char *argv[])
     
   }
   node = wb_supervisor_field_get_mf_node(children, 0);
-  field = wb_supervisor_node_get_field(node, "coordinateSystem");
-  coordinateSystem = wb_supervisor_field_get_sf_string(field);
-      
-  if (coordinateSystem[0] == 'N')
+  field = wb_supervisor_node_get_field(node, "northDirection");
+  memcpy(&northDirection,wb_supervisor_field_get_sf_vec3f(field),sizeof(double)*3);
+    
+  if (northDirection[0] == 1)
   {
     printf ("Axis Default Directions\n");
   }
 
-  printf("WorldInfo.coordinateSystem = %s\n\n", coordinateSystem);
+  printf("WorldInfo.northDirection = %g %g %g\n\n", northDirection[0], northDirection[1], northDirection[2]);
 
 
 
@@ -167,15 +168,12 @@ int main(int argc, char **argv) {
       memcpy(outputData,linear_velocity, sizeof(double) * 3);
 
       /*
-      * This is used to handle sensors axis when coordinateSystem is different than "NUE"
+      * This is used to handle sensors axis when northDirection is different than [1,0,0]
       * Note: that only two values are handled here.
       * Local map northDirection [1,0,0]
       * OpenStreetView map northDirection [0,0,1]
       */
-      if (coordinateSystem[0] == 'N')
-        outputData[3] = 1.0; // send Map indicator;
-      else
-        outputData[3] = 0.0; // send Map indicator;
+      outputData[3] = northDirection[0]; // send Map indicator;
       wb_emitter_set_channel(emitter, robots[i]->receiver_channel);
       wb_emitter_send(emitter, (const void *) outputData, sizeof(double) * 4);
       #ifdef DEBUG_DATA

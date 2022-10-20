@@ -1,0 +1,1415 @@
+#VRML_SIM R2021a utf8
+WorldInfo {
+  gravity 9.80665
+  physics "sitl_physics_env"
+  basicTimeStep 1
+  FPS 15
+  optimalThreadCount 4
+  coordinateSystem "NUE"
+  randomSeed 52
+}
+Viewpoint {
+  orientation -0.0035910924977149506 0.9512467565148014 0.30840997434379963 3.119441130032732
+  position -9.774716036112654 22.239432779936887 -83.58219385266446
+  followType "Mounted Shot"
+}
+Robot {
+  translation 99 -0.9 0
+  rotation 0 0 1 0
+  children [
+    Emitter {
+      type "serial"
+      channel 1
+    }
+  ]
+  name "supervisor_sync"
+  boundingObject Box {
+    size 0.1 0.1 0.1
+  }
+  physics Physics {
+  }
+  controller "ardupilot_SITL_Supervisor"
+  supervisor TRUE
+}
+DEF DEF_VEHICLE Robot {
+  translation -7.22422 -0.35 -63
+  rotation 0 1 0 0.785
+  children [
+    Robot {
+      children [
+        TouchSensor {
+          translation 0 0.03 0
+          rotation 0 1 0 1.57
+          boundingObject box {
+          }
+        }
+        RangeFinder {
+          translation 0 0.32 0
+          rotation 0.09018484661145616 0.991833346325549 0.09018484661145616 -1.57
+          maxRange 15
+        }
+      ]
+      controller "ros"
+    }
+    Receiver {
+      name "receiver_main"
+      type "serial"
+      channel 1
+      bufferSize 32
+    }
+    Emitter {
+      name "emitter_plugin"
+      description "commuicates with physics plugin"
+    }
+    Shape {
+      appearance Appearance {
+        material Material {
+        }
+      }
+      geometry Box {
+        size 0.1 0.1 0.1
+      }
+    }
+    Camera {
+      translation 0 0.12 0
+      rotation 0.12942795977353752 0.9831056944488316 0.12942795977353752 -1.5878343071795866
+      name "camera1"
+      width 128
+      height 128
+    }
+    Compass {
+      name "compass1"
+    }
+    GPS {
+      name "gps1"
+    }
+    Accelerometer {
+      name "accelerometer1"
+    }
+    Gyro {
+      name "gyro1"
+    }
+    InertialUnit {
+      name "inertial_unit"
+    }
+    Transform {
+      translation -0.09999999999999999 0 0
+      rotation -0.5773502691896258 0.5773502691896258 0.5773502691896258 2.094395
+      children [
+        Solid {
+          translation 0 0.35 0
+          rotation 1 0 0 1.5707959999999999
+          children [
+            Propeller {
+              shaftAxis 0 -1 0
+              thrustConstants -12.2583125 0
+              torqueConstants 18 0
+              device RotationalMotor {
+                name "motor3"
+                controlPID 10.001 0 0
+                maxVelocity 1000
+              }
+              fastHelix Solid {
+                children [
+                  Shape {
+                    appearance Appearance {
+                      material Material {
+                        diffuseColor 1 0 0.1
+                      }
+                    }
+                    geometry Cylinder {
+                      height 0.002
+                      radius 0.02
+                    }
+                  }
+                ]
+              }
+              slowHelix Solid {
+                rotation 0 1 0 1.1667874781290464
+                children [
+                  Shape {
+                    appearance Appearance {
+                      material Material {
+                        diffuseColor 1 0 0.1
+                      }
+                    }
+                    geometry Cylinder {
+                      height 0.002
+                      radius 0.02
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+          physics Physics {
+            mass 0.25
+          }
+        }
+        Shape {
+          appearance Appearance {
+            material Material {
+            }
+          }
+          geometry DEF DEF_ARM Cylinder {
+            height 0.1
+            radius 0.01
+          }
+        }
+      ]
+    }
+    Transform {
+      translation 0 0 0.09999999999999999
+      rotation 0 0.7071067811865476 0.7071067811865476 -3.1415923071795864
+      children [
+        Solid {
+          translation 0 0.35 0
+          rotation 1 0 0 1.5707959999999999
+          children [
+            Propeller {
+              shaftAxis 0 1 0
+              thrustConstants 12.2583125 0
+              torqueConstants 18 0
+              device RotationalMotor {
+                name "motor2"
+                controlPID 10.001 0 0
+                maxVelocity 1000
+              }
+              fastHelix Solid {
+                children [
+                  Shape {
+                    appearance Appearance {
+                      material Material {
+                        diffuseColor 1 0 0.1
+                      }
+                    }
+                    geometry Cylinder {
+                      height 0.002
+                      radius 0.02
+                    }
+                  }
+                ]
+              }
+              slowHelix Solid {
+                rotation 0 -1 0 5.370767303526115
+                children [
+                  Shape {
+                    appearance Appearance {
+                      material Material {
+                        diffuseColor 1 0 0.1
+                      }
+                    }
+                    geometry Cylinder {
+                      height 0.002
+                      radius 0.02
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+          name "solid(2)"
+          physics Physics {
+            mass 0.25
+          }
+        }
+        Shape {
+          appearance Appearance {
+            material Material {
+            }
+          }
+          geometry USE DEF_ARM
+        }
+      ]
+    }
+    Transform {
+      translation 0.09999999999999999 0 0
+      rotation 0.5773502691896258 0.5773502691896258 0.5773502691896258 -2.094395307179586
+      children [
+        Solid {
+          translation 0 0.35 0
+          rotation 1 0 0 1.5707959999999999
+          children [
+            Propeller {
+              shaftAxis 0 -1 0
+              thrustConstants -12.2583125 0
+              torqueConstants 18 0
+              device RotationalMotor {
+                name "motor1"
+                controlPID 10.001 0 0
+                maxVelocity 1000
+              }
+              fastHelix Solid {
+                children [
+                  Shape {
+                    appearance Appearance {
+                      material Material {
+                        diffuseColor 1 0 0.1
+                      }
+                    }
+                    geometry Cylinder {
+                      height 0.002
+                      radius 0.02
+                    }
+                  }
+                ]
+              }
+              slowHelix Solid {
+                rotation 0 1 0 5.486397909883531
+                children [
+                  Shape {
+                    appearance Appearance {
+                      material Material {
+                        diffuseColor 1 0 0.1
+                      }
+                    }
+                    geometry Cylinder {
+                      height 0.002
+                      radius 0.02
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+          name "solid(1)"
+          physics Physics {
+            mass 0.25
+          }
+        }
+        Shape {
+          appearance Appearance {
+            material Material {
+              diffuseColor 1 0.09999999999999999 0
+            }
+          }
+          geometry USE DEF_ARM
+        }
+      ]
+    }
+    Transform {
+      translation 0 0 -0.09999999999999999
+      rotation 1 0 0 -1.5707963071795863
+      children [
+        Solid {
+          translation 0 0.35 0
+          rotation 1 0 0 1.5707959999999999
+          children [
+            Propeller {
+              shaftAxis 0 1 0
+              thrustConstants 12.2583125 0
+              torqueConstants 18 0
+              device RotationalMotor {
+                name "motor4"
+                controlPID 10.001 0 0
+                maxVelocity 1000
+              }
+              fastHelix Solid {
+                children [
+                  Shape {
+                    appearance Appearance {
+                      material Material {
+                        diffuseColor 1 0 0.1
+                      }
+                    }
+                    geometry Cylinder {
+                      height 0.002
+                      radius 0.02
+                    }
+                  }
+                ]
+              }
+              slowHelix Solid {
+                rotation 0 -1 0 5.350616673324008
+                children [
+                  Shape {
+                    appearance Appearance {
+                      material Material {
+                        diffuseColor 1 0 0.1
+                      }
+                    }
+                    geometry Cylinder {
+                      height 0.002
+                      radius 0.02
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+          name "solid(3)"
+          physics Physics {
+            mass 0.25
+          }
+        }
+        Shape {
+          appearance Appearance {
+            material Material {
+              diffuseColor 0.7999999999999999 0.7999999999999999 0.7999999999999999
+            }
+          }
+          geometry USE DEF_ARM
+        }
+      ]
+    }
+  ]
+  name "quad_plus_sitl"
+  boundingObject Box {
+    size 0.1 0.1 0.1
+  }
+  physics Physics {
+    density -1
+    mass 1.5
+    centerOfMass [
+      0 0 0
+    ]
+  }
+  rotationStep 0.261799
+  controller "ardupilot_SITL_QUAD"
+  controllerArgs [
+    "-p"
+    "5599"
+    "-df"
+    "0.01"
+  ]
+  customData "1"
+}
+modifiedtree {
+  translation 51 -0.95 0
+  name "tree7"
+}
+Tractor {
+  translation -16 -0.4 -65
+  name "ugv1"
+  controller "ros_automobile"
+  sensorSlot [
+    InertialUnit {
+    }
+    GPS {
+      translation 0 0 1
+    }
+  ]
+}
+Tractor {
+  translation -4 -0.4 -65
+  name "ugv2"
+  controller "ros_automobile"
+  sensorSlot [
+    InertialUnit {
+    }
+    GPS {
+      translation 0 0 1
+    }
+  ]
+}
+modifiedtree {
+  translation 11.6216 -0.95 13.612
+  name "tree8"
+  type "hackberry tree"
+  subdivision 3
+  locked FALSE
+}
+modifiedtree {
+  translation 29.6816 -0.95 -33.7611
+  name "tree9"
+  type "hackberry tree"
+  subdivision 3
+  locked FALSE
+}
+modifiedtree {
+  translation -31.4812 -0.95 -53.3795
+  name "tree13"
+  type "hackberry tree"
+  subdivision 3
+  locked FALSE
+}
+modifiedtree {
+  translation 20.1582 -0.95 -5.66483
+  name "tree14"
+  type "crab apple tree"
+  subdivision 3
+  locked FALSE
+}
+modifiedtree {
+  translation -31.7715 -0.95 -17.3244
+  name "tree15"
+  type "crab apple tree"
+  subdivision 5
+  locked FALSE
+}
+modifiedtree {
+  translation 28.3251 -0.95 -23.3558
+  name "tree26"
+  subdivision 3
+  locked FALSE
+}
+modifiedtree {
+  translation -29.847 -0.95 5.20651
+  rotation 0 1 0 0.523599
+  name "tree30"
+  subdivision 3
+  locked FALSE
+}
+modifiedtree {
+  translation 19.5181 -0.95 19.8931
+  rotation 0 1 0 -2.3561953071795863
+  name "tree29"
+  type "crab apple tree"
+  subdivision 3
+  locked FALSE
+}
+modifiedtree {
+  translation 13.0075 -0.95 -41.8537
+  rotation 0 1 0 1.309
+  name "tree28"
+  type "crab apple tree"
+  subdivision 3
+  locked FALSE
+}
+modifiedtree {
+  translation 24.7501 -0.95 19.2673
+  name "tree27(1)"
+  type "crab apple tree"
+  subdivision 3
+  locked FALSE
+}
+modifiedtree {
+  translation 21.1702 -0.95 -19.1518
+  rotation 0 1 0 0.785398
+  name "tree16"
+  type "crab apple tree"
+  subdivision 5
+  locked FALSE
+}
+modifiedtree {
+  translation -3.45714 -0.95 29.4298
+  name "tree23"
+  type "crab apple tree"
+  subdivision 5
+  locked FALSE
+}
+modifiedtree {
+  translation 13.1494 -0.95 -50.9138
+  name "tree21"
+  type "crab apple tree"
+  subdivision 5
+  locked FALSE
+}
+modifiedtree {
+  translation 14.7317 -0.95 -25.7629
+  name "tree12"
+  type "hackberry tree"
+  subdivision 3
+  locked FALSE
+}
+modifiedtree {
+  translation -26.7768 -0.95 -41.0067
+  name "tree11"
+  type "hackberry tree"
+  subdivision 3
+  locked FALSE
+}
+modifiedtree {
+  translation 18.1771 -0.95 -57.0678
+  name "tree11(2)"
+  type "hackberry tree"
+  subdivision 3
+  locked FALSE
+}
+modifiedtree {
+  translation 5.73354 -0.95 28.7009
+  rotation 0 1 0 -1.5707953071795862
+  name "tree11(1)"
+  type "hackberry tree"
+  subdivision 3
+  locked FALSE
+}
+UnevenTerrain {
+  translation 14 -1 59
+  rotation 9.58979e-09 -1 9.58976e-09 -1.5707953071795862
+  size 53 5 100
+  appearance PBRAppearance {
+    baseColorMap ImageTexture {
+      url [
+        "/home/airlab-halil/Downloads/ground2.jpg"
+      ]
+    }
+    roughness 1
+    metalness 0
+  }
+  flatBounds TRUE
+}
+modifiedtree {
+  translation 55 -0.95 10
+  name "tree(2)"
+  type "crab apple tree"
+  radius 3
+  subdivision 4
+}
+SimpleChair {
+  translation 80 -1.96133e-05 5
+}
+SimpleChair {
+  translation 89.9878 -9.80665e-06 -10.3366
+  name "simple chair(1)"
+}
+SimpleChair {
+  translation 75.1152 -9.80665e-06 -1.60589
+  rotation 1 0 0 4.692820414042842e-06
+  name "simple chair(2)"
+}
+Background {
+  skyColor [
+    0.15 0.5 1
+  ]
+}
+Solid {
+  translation 128.996 -1 -35.3003
+  rotation 0 1 0 -1.5707953071795862
+  children [
+    HouseWithGarage {
+    }
+  ]
+}
+Solid {
+  translation 184.148 -0.9 20.4943
+  children [
+    HouseWithGarage {
+      rotation 0 1 0 -1.5707953071795862
+    }
+  ]
+  name "solid(1)"
+}
+DirectionalLight {
+  direction 0 -1 0
+}
+Floor {
+  translation 0 -1 0
+  size 500 750
+  appearance Grass {
+  }
+}
+Floor {
+  translation -10 -0.96 -20
+  name "floor(7)"
+  size 0.5 80
+  appearance Parquetry {
+    type "dark strip"
+  }
+}
+Floor {
+  translation -16 -0.96 -20
+  name "floor(11)"
+  size 0.5 80
+  appearance Parquetry {
+    type "dark strip"
+  }
+}
+Floor {
+  translation -4 -0.96 -20
+  name "floor(8)"
+  size 0.5 80
+  appearance Parquetry {
+    type "dark strip"
+  }
+}
+Floor {
+  translation 2 -0.96 -20
+  name "floor(9)"
+  size 0.5 80
+  appearance Parquetry {
+    type "dark strip"
+  }
+}
+Floor {
+  translation -13 -0.96 20
+  name "floor(10)"
+  size 6 0.5
+  appearance Parquetry {
+    type "dark strip"
+  }
+}
+Floor {
+  translation -7 -0.96 -60
+  name "floor(6)"
+  size 6 0.5
+  appearance Parquetry {
+    type "dark strip"
+  }
+}
+Floor {
+  translation -1 -0.96 20
+  name "floor(12)"
+  size 6 0.5
+  appearance Parquetry {
+    type "dark strip"
+  }
+}
+Floor {
+  translation 14 -0.98 -17
+  name "floor(5)"
+  size 100 100
+  appearance PBRAppearance {
+    baseColorMap ImageTexture {
+      url [
+        "/home/airlab-halil/Documents/halil/OpenDR/WP7 Integration/3.jpg"
+      ]
+      filtering 3
+    }
+    roughness 1
+    metalness 0
+  }
+}
+DEF tree_model Solid {
+  translation 23.5005 -0.9 -43.2329
+  scale 1.5 1.5 1.5
+  children [
+    DEF simple_tree Tree {
+    }
+    DEF trunkmain Solid {
+      translation 0 1 0
+      children [
+        DEF trunk Shape {
+          appearance PBRAppearance {
+            baseColor 0.560784 0.34902 0.00784314
+            transparency 1
+            roughness 1
+            metalness 0
+          }
+          geometry Cylinder {
+            radius 0.08
+          }
+        }
+      ]
+      boundingObject USE trunk
+    }
+    DEF crownmain Solid {
+      translation 0 2.3 0
+      children [
+        DEF crown Shape {
+          appearance PBRAppearance {
+            baseColor 0.305882 0.603922 0.0235294
+            transparency 1
+            roughness 1
+            metalness 0
+          }
+          geometry Sphere {
+            radius 1.5
+          }
+        }
+      ]
+      name "solid(1)"
+      boundingObject USE crown
+    }
+  ]
+  name "solid(5)"
+}
+DEF tree_model Solid {
+  translation -27.5373 -0.9 -8.97239
+  scale 1.5 1.5 1.5
+  children [
+    DEF simple_tree Tree {
+    }
+    DEF trunkmain Solid {
+      translation 0 1 0
+      children [
+        DEF trunk Shape {
+          appearance PBRAppearance {
+            baseColor 0.560784 0.34902 0.00784314
+            transparency 1
+            roughness 1
+            metalness 0
+          }
+          geometry Cylinder {
+            radius 0.08
+          }
+        }
+      ]
+      boundingObject USE trunk
+    }
+    DEF crownmain Solid {
+      translation 0 2.3 0
+      children [
+        DEF crown Shape {
+          appearance PBRAppearance {
+            baseColor 0.305882 0.603922 0.0235294
+            transparency 1
+            roughness 1
+            metalness 0
+          }
+          geometry Sphere {
+            radius 1.5
+          }
+        }
+      ]
+      name "solid(1)"
+      boundingObject USE crown
+    }
+  ]
+  name "solid(4)"
+}
+DEF tree_model Solid {
+  translation 26.5967 -0.9 -14.4138
+  scale 1.5 1.5 1.5
+  children [
+    DEF simple_tree Tree {
+    }
+    DEF trunkmain Solid {
+      translation 0 1 0
+      children [
+        DEF trunk Shape {
+          appearance PBRAppearance {
+            baseColor 0.560784 0.34902 0.00784314
+            transparency 1
+            roughness 1
+            metalness 0
+          }
+          geometry Cylinder {
+            radius 0.08
+          }
+        }
+      ]
+      boundingObject USE trunk
+    }
+    DEF crownmain Solid {
+      translation 0 2.3 0
+      children [
+        DEF crown Shape {
+          appearance PBRAppearance {
+            baseColor 0.305882 0.603922 0.0235294
+            transparency 1
+            roughness 1
+            metalness 0
+          }
+          geometry Sphere {
+            radius 1.5
+          }
+        }
+      ]
+      name "solid(1)"
+      boundingObject USE crown
+    }
+  ]
+  name "solid(2)"
+}
+DEF tree_model Solid {
+  translation -17.4696 -0.9 -23.4652
+  scale 1.5 1.5 1.5
+  children [
+    DEF simple_tree Tree {
+      scale 0.8 4 0.8
+    }
+    DEF trunkmain Solid {
+      translation 0 1 0
+      children [
+        DEF trunk Shape {
+          appearance PBRAppearance {
+            baseColor 0.560784 0.34902 0.00784314
+            transparency 1
+            roughness 1
+            metalness 0
+          }
+          geometry Cylinder {
+            radius 0.08
+          }
+        }
+      ]
+      boundingObject USE trunk
+    }
+    DEF crownmain Solid {
+      translation 0 2.3 0
+      children [
+        DEF crown Shape {
+          appearance PBRAppearance {
+            baseColor 0.305882 0.603922 0.0235294
+            transparency 1
+            roughness 1
+            metalness 0
+          }
+          geometry Sphere {
+            radius 1.5
+          }
+        }
+      ]
+      name "solid(1)"
+      boundingObject USE crown
+    }
+  ]
+  name "solid(3)"
+}
+DEF tree_model Solid {
+  translation -14.3904 -0.9 -48.5611
+  scale 1.5 1.5 1.5
+  children [
+    DEF simple_tree Tree {
+      scale 0.8 4 0.8
+    }
+    DEF trunkmain Solid {
+      translation 0 1 0
+      children [
+        DEF trunk Shape {
+          appearance PBRAppearance {
+            baseColor 0.560784 0.34902 0.00784314
+            transparency 1
+            roughness 1
+            metalness 0
+          }
+          geometry Cylinder {
+            radius 0.08
+          }
+        }
+      ]
+      boundingObject USE trunk
+    }
+    DEF crownmain Solid {
+      translation 0 2.3 0
+      children [
+        DEF crown Shape {
+          appearance PBRAppearance {
+            baseColor 0.305882 0.603922 0.0235294
+            transparency 1
+            roughness 1
+            metalness 0
+          }
+          geometry Sphere {
+            radius 1.5
+          }
+        }
+      ]
+      name "solid(1)"
+      boundingObject USE crown
+    }
+  ]
+  name "solid(6)"
+}
+DEF tree_model Solid {
+  translation -8.98885 -0.9 -39.3014
+  scale 1.5 1.5 1.5
+  children [
+    DEF simple_tree Tree {
+      scale 0.8 4 0.8
+    }
+    DEF trunkmain Solid {
+      translation 0 1 0
+      children [
+        DEF trunk Shape {
+          appearance PBRAppearance {
+            baseColor 0.560784 0.34902 0.00784314
+            transparency 1
+            roughness 1
+            metalness 0
+          }
+          geometry Cylinder {
+            radius 0.08
+          }
+        }
+      ]
+      boundingObject USE trunk
+    }
+    DEF crownmain Solid {
+      translation 0 2.3 0
+      children [
+        DEF crown Shape {
+          appearance PBRAppearance {
+            baseColor 0.305882 0.603922 0.0235294
+            transparency 1
+            roughness 1
+            metalness 0
+          }
+          geometry Sphere {
+            radius 1.5
+          }
+        }
+      ]
+      name "solid(1)"
+      boundingObject USE crown
+    }
+  ]
+  name "solid(7)"
+}
+DEF tree_model Solid {
+  translation -5.44965 -0.9 -46.3554
+  scale 1.5 1.5 1.5
+  children [
+    DEF simple_tree Tree {
+      scale 0.8 4 0.8
+    }
+    DEF trunkmain Solid {
+      translation 0 1 0
+      children [
+        DEF trunk Shape {
+          appearance PBRAppearance {
+            baseColor 0.560784 0.34902 0.00784314
+            transparency 1
+            roughness 1
+            metalness 0
+          }
+          geometry Cylinder {
+            radius 0.08
+          }
+        }
+      ]
+      boundingObject USE trunk
+    }
+    DEF crownmain Solid {
+      translation 0 2.3 0
+      children [
+        DEF crown Shape {
+          appearance PBRAppearance {
+            baseColor 0.305882 0.603922 0.0235294
+            transparency 1
+            roughness 1
+            metalness 0
+          }
+          geometry Sphere {
+            radius 1.5
+          }
+        }
+      ]
+      name "solid(1)"
+      boundingObject USE crown
+    }
+    DEF crownmain Solid {
+      translation 0 2.3 0
+      children [
+        DEF crown Shape {
+          appearance PBRAppearance {
+            baseColor 0.305882 0.603922 0.0235294
+            transparency 1
+            roughness 1
+            metalness 0
+          }
+          geometry Sphere {
+            radius 1.5
+          }
+        }
+      ]
+      name "solid(2)"
+      boundingObject USE crown
+    }
+  ]
+  name "solid(14)"
+}
+DEF tree_model Solid {
+  translation 3.35971 -0.9 7.92297
+  scale 1.5 1.5 1.5
+  children [
+    DEF simple_tree Tree {
+      scale 0.8 4 0.8
+    }
+    DEF trunkmain Solid {
+      translation 0 1 0
+      children [
+        DEF trunk Shape {
+          appearance PBRAppearance {
+            baseColor 0.560784 0.34902 0.00784314
+            transparency 1
+            roughness 1
+            metalness 0
+          }
+          geometry Cylinder {
+            radius 0.08
+          }
+        }
+      ]
+      boundingObject USE trunk
+    }
+    DEF crownmain Solid {
+      translation 0 2.3 0
+      children [
+        DEF crown Shape {
+          appearance PBRAppearance {
+            baseColor 0.305882 0.603922 0.0235294
+            transparency 1
+            roughness 1
+            metalness 0
+          }
+          geometry Sphere {
+            radius 1.5
+          }
+        }
+      ]
+      name "solid(1)"
+      boundingObject USE crown
+    }
+  ]
+  name "solid(8)"
+}
+DEF tree_model Solid {
+  translation 1.34721 -0.9 -10.3393
+  scale 1.5 1.5 1.5
+  children [
+    DEF simple_tree Tree {
+      scale 0.8 4 0.8
+    }
+    DEF trunkmain Solid {
+      translation 0 1 0
+      children [
+        DEF trunk Shape {
+          appearance PBRAppearance {
+            baseColor 0.560784 0.34902 0.00784314
+            transparency 1
+            roughness 1
+            metalness 0
+          }
+          geometry Cylinder {
+            radius 0.08
+          }
+        }
+      ]
+      boundingObject USE trunk
+    }
+    DEF crownmain Solid {
+      translation 0 2.3 0
+      children [
+        DEF crown Shape {
+          appearance PBRAppearance {
+            baseColor 0.305882 0.603922 0.0235294
+            transparency 1
+            roughness 1
+            metalness 0
+          }
+          geometry Sphere {
+            radius 1.5
+          }
+        }
+      ]
+      name "solid(1)"
+      boundingObject USE crown
+    }
+  ]
+  name "solid(9)"
+}
+DEF tree_model Solid {
+  translation -8.70632 -0.9 -2.04681
+  scale 1.5 1.5 1.5
+  children [
+    DEF simple_tree Tree {
+      scale 0.8 4 0.8
+    }
+    DEF trunkmain Solid {
+      translation 0 1 0
+      children [
+        DEF trunk Shape {
+          appearance PBRAppearance {
+            baseColor 0.560784 0.34902 0.00784314
+            transparency 1
+            roughness 1
+            metalness 0
+          }
+          geometry Cylinder {
+            radius 0.08
+          }
+        }
+      ]
+      boundingObject USE trunk
+    }
+    DEF crownmain Solid {
+      translation 0 2.3 0
+      children [
+        DEF crown Shape {
+          appearance PBRAppearance {
+            baseColor 0.305882 0.603922 0.0235294
+            transparency 1
+            roughness 1
+            metalness 0
+          }
+          geometry Sphere {
+            radius 1.5
+          }
+        }
+      ]
+      name "solid(1)"
+      boundingObject USE crown
+    }
+  ]
+  name "solid(10)"
+}
+DEF tree_model Solid {
+  translation 0.752954 -0.9 -36.3275
+  scale 1.5 1.5 1.5
+  children [
+    DEF simple_tree Tree {
+      scale 0.8 4 0.8
+    }
+    DEF trunkmain Solid {
+      translation 0 1 0
+      children [
+        DEF trunk Shape {
+          appearance PBRAppearance {
+            baseColor 0.560784 0.34902 0.00784314
+            transparency 1
+            roughness 1
+            metalness 0
+          }
+          geometry Cylinder {
+            radius 0.08
+          }
+        }
+      ]
+      boundingObject USE trunk
+    }
+    DEF crownmain Solid {
+      translation 0 2.3 0
+      children [
+        DEF crown Shape {
+          appearance PBRAppearance {
+            baseColor 0.305882 0.603922 0.0235294
+            transparency 1
+            roughness 1
+            metalness 0
+          }
+          geometry Sphere {
+            radius 1.5
+          }
+        }
+      ]
+      name "solid(1)"
+      boundingObject USE crown
+    }
+  ]
+  name "solid(13)"
+}
+DEF tree_model Solid {
+  translation -8.45093 -0.9 7.56275
+  scale 1.5 1.5 1.5
+  children [
+    DEF simple_tree Tree {
+      scale 0.8 4 0.8
+    }
+    DEF trunkmain Solid {
+      translation 0 1 0
+      children [
+        DEF trunk Shape {
+          appearance PBRAppearance {
+            baseColor 0.560784 0.34902 0.00784314
+            transparency 1
+            roughness 1
+            metalness 0
+          }
+          geometry Cylinder {
+            radius 0.08
+          }
+        }
+      ]
+      boundingObject USE trunk
+    }
+    DEF crownmain Solid {
+      translation 0 2.3 0
+      children [
+        DEF crown Shape {
+          appearance PBRAppearance {
+            baseColor 0.305882 0.603922 0.0235294
+            transparency 1
+            roughness 1
+            metalness 0
+          }
+          geometry Sphere {
+            radius 1.5
+          }
+        }
+      ]
+      name "solid(1)"
+      boundingObject USE crown
+    }
+  ]
+  name "solid(11)"
+}
+DEF tree_model Solid {
+  translation -5.2421 -0.9 -19.7782
+  scale 1.5 1.5 1.5
+  children [
+    DEF simple_tree Tree {
+      scale 0.8 4 0.8
+    }
+    DEF trunkmain Solid {
+      translation 0 1 0
+      children [
+        DEF trunk Shape {
+          appearance PBRAppearance {
+            baseColor 0.560784 0.34902 0.00784314
+            transparency 1
+            roughness 1
+            metalness 0
+          }
+          geometry Cylinder {
+            radius 0.08
+          }
+        }
+      ]
+      boundingObject USE trunk
+    }
+    DEF crownmain Solid {
+      translation 0 2.3 0
+      children [
+        DEF crown Shape {
+          appearance PBRAppearance {
+            baseColor 0.305882 0.603922 0.0235294
+            transparency 1
+            roughness 1
+            metalness 0
+          }
+          geometry Sphere {
+            radius 1.5
+          }
+        }
+      ]
+      name "solid(1)"
+      boundingObject USE crown
+    }
+  ]
+  name "solid(12)"
+}
+modifiedtree {
+  translation -31.786 -0.95 23.0753
+  name "tree29(1)"
+  subdivision 3
+  locked FALSE
+}
+modifiedtree {
+  translation 21.4797 -0.95 7.10138
+  rotation 0 0 1 2.85387e-06
+  name "tree18"
+  type "crab apple tree"
+  subdivision 5
+  locked FALSE
+}
+StraightRoadSegment {
+  translation 167 -0.95 -8
+  rotation 0 1 0 -3.141592653589793
+  name "road(4)"
+  id "1"
+  roadBorderHeight 0.1
+  length 24
+}
+Floor {
+  translation 160 -0.95 21
+  name "floor(3)"
+  size 35 24
+  appearance Parquetry {
+    type "dark strip"
+  }
+}
+Floor {
+  translation 151 -0.95 -24
+  name "floor(4)"
+  size 21 37
+  appearance Parquetry {
+    type "dark strip"
+  }
+}
+RoadIntersection {
+  translation 167 -0.95 0
+  rotation 0 1 0 0.7853996938995746
+}
+Windmill {
+  translation 86 -1 135
+}
+Floor {
+  translation 108 -0.95 125.1
+  name "floor(2)"
+  size 35 24
+  appearance Parquetry {
+    type "dark strip"
+  }
+}
+Cypress {
+  translation 107.848 -1 37.4327
+  name "cypress tree(3)"
+}
+Cypress {
+  translation 108.069 -1 45.8296
+  name "cypress tree(4)"
+}
+Cypress {
+  translation 107.424 -1 20.401
+}
+Cypress {
+  translation 107.401 -0.78 12.0747
+  name "cypress tree(2)"
+}
+Cypress {
+  translation 107.52 -1 29.133
+  name "cypress tree(1)"
+}
+StraightRoadSegment {
+  translation 227 -0.95 0
+  rotation 0 1 0 -1.5707996938995747
+  name "road(2)"
+  id "1"
+  roadBorderHeight 0.1
+  length 52
+}
+StraightRoadSegment {
+  translation 159 -0.95 0
+  rotation 0 1 0 -1.5707996938995747
+  name "road(3)"
+  id "1"
+  roadBorderHeight 0.1
+  length 32
+}
+Oak {
+  translation 112.63 -1 -1.54384
+}
+Roundabout {
+  translation 114 -0.95 0
+  rotation 0 1 0 -0.7853996938995746
+  connectedRoadIDs [
+    "1"
+  ]
+  borderHeight 0.1
+}
+Oak {
+  translation 112.477 -1 1.24417
+  name "oak tree(3)"
+}
+Oak {
+  translation 115.803 -1 -0.975352
+  name "oak tree(2)"
+}
+Oak {
+  translation 114.835 -1 1.29357
+  name "oak tree(1)"
+}
+StraightRoadSegment {
+  translation 114 -0.95 -113
+  id "1"
+  roadBorderHeight 0.1
+  length 100
+}
+StraightRoadSegment {
+  translation 114 -0.95 13
+  name "road(1)"
+  id "1"
+  roadBorderHeight 0.1
+  length 100
+}
+Floor {
+  translation 83 -0.98 0
+  name "floor(1)"
+  size 35 35
+  appearance Parquetry {
+    type "dark strip"
+  }
+}
+modifiedtree {
+  translation 57 -0.95 0
+  name "tree_6"
+  type "crab apple tree"
+}
+modifiedtree {
+  translation 54 -0.95 -6
+  name "tree_8"
+  type "crab apple tree"
+}
+StripBuilding {
+  translation 122.215 -1 111.389
+  rotation 0 1 0 1.5707996938995747
+}
+Warehouse {
+  translation 108.69 -1 143.302
+}
+ModernSuburbanHouse {
+  translation 132.02 -0.9 -16.2363
+  rotation 0 1 0 3.14159
+}

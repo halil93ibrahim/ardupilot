@@ -1,0 +1,41 @@
+#VRML_SIM R2021a utf8
+WorldInfo {
+  coordinateSystem "NUE"
+}
+Viewpoint {
+  orientation -0.8939725716995722 -0.4118697112973428 -0.17656834927216275 0.8942992168845236
+  position -0.9569058122561572 2.8399910143000455 2.5972007651225053
+}
+Background {
+  skyColor [
+    0.15 0.45 1
+  ]
+}
+Floor {
+}
+Shape {
+}
+TexturedBackgroundLight {
+}
+Robot {
+  translation 9.56881027072913e-16 0.049606541493933454 -4.2901744738655656e-16
+  rotation 0.01943221100525446 0.9998059311615812 -0.003238701834213107 -3.2908682496882146e-15
+  children [
+    Shape {
+      appearance Appearance {
+      }
+      geometry Box {
+        size 0.1 0.1 0.1
+      }
+    }
+  ]
+  boundingObject Box {
+    size 0.1 0.1 0.1
+  }
+  physics Physics {
+  }
+  controller "ros"
+  supervisor TRUE
+  linearVelocity -3.991337565645388e-17 8.289867232751301e-06 -3.054813288687696e-17
+  angularVelocity -3.9968028886504823e-16 1.2117783596490564e-16 9.992007221626594e-16
+}
